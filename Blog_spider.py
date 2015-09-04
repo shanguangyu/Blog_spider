@@ -44,11 +44,8 @@ def GetContent(url, date):
 
 
     soup = BeautifulSoup(urllib2.urlopen(url).read())
-
     blog_content = soup.find('div', attrs = {'id':'blog_article', 'class':'d cl'})
     weekday = datetime.datetime.strptime(standard_date,"%Y-%M-%d").strftime("%a")
-
-
     content = []
     for text in blog_content.stripped_strings:
         if len(text) == 0:
@@ -65,15 +62,12 @@ def GetContent(url, date):
     content = "\n\n".join(content).encode('utf-8')
 
     title = "-".join([t.strip() for t in soup.find('h1', attrs = {'class': 'ph'}).text.encode('utf-8').splitlines() if len(t.strip()) > 0])
-
-
     with open("%s[%s-%s,%s_%s].txt" % (title, weekday, standard_date, standard_time_former, standard_time_latter), 'w') as fh:
         fh.write(content)
 
 
 def main():
-    
-        YieldUrlList()
+    YieldUrlList()
 
 
 if __name__ =='__main__':
